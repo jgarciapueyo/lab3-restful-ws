@@ -1,5 +1,6 @@
 package rest.addressbook.config;
 
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import org.eclipse.persistence.jaxb.rs.MOXyJsonProvider;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -13,6 +14,10 @@ public class ApplicationConfig extends ResourceConfig {
    */
   public ApplicationConfig() {
     this(new AddressBook());
+
+    // support for OpenAPI 3.0
+    OpenApiResource openApiResource = new OpenApiResource();
+    register(openApiResource);
   }
 
 
@@ -31,6 +36,10 @@ public class ApplicationConfig extends ResourceConfig {
         bind(addressBook).to(AddressBook.class);
       }
     });
+
+    // support for OpenAPI 3.0
+    OpenApiResource openApiResource = new OpenApiResource();
+    register(openApiResource);
   }
 
 }
